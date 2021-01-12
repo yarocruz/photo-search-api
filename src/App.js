@@ -1,45 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
+import usePhotoSearch from "./hooks/usePhotoSearch";
 
-// Unsplash API
-let count = 20
-const apiKey = 'BJD0Ft5i5Qwk6bmbM5zaeFqR3c8uNVz0DZRBxojk4fo'
-let apiUrl = `https://api.unsplash.com/search/photos/?client_id=${apiKey}&per_page=${count}&content_filter=high&query=games`
 
 function App() {
-  const [photos, setPhotos] = useState([])
 
-  const fetchPhotos = () => {
-    return fetch(apiUrl)
-         .then(async response => {
-             const data = await response.json()
-             if (response.ok) {
-                 setPhotos([...data.results])
-                 console.log(photos)
-                 console.log(data)
-                 console.log(photos)
-             } else {
-                 return Promise.reject(data)
-             }
-         })
-  }
+    const [query, setQuery] = useState('')
+    const [pageNumber, setPageNumber] = useState(1)
 
-  // useEffect(() => {
-  //     window.addEventListener('scroll', () => {
-  //         // window.innerHeight is the total height of the browser window
-  //         // window.scrollY distance from top of page
-  //         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
-  //            fetchPhotos()
-  //         }
-  //     })
-  // })
+    const { photos, error, hasMore, loading } = usePhotoSearch(query, pageNumber)
+
+    const observer = useRef();
+
+    const lastImgElement = useCallback(node => {
+       if (loading) return
+       if (observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+           if(entries[0].isIntersecting && hasMore) {
+               setPageNumber(prevPageNumber => prevPageNumber + 1)
+           }
+        })
+        if (node) observer.current.observe(node)
+        console.log(node)
+    }, [loading, hasMore])
+
+    function handleSearch(e) {
+        setQuery(e.target.value)
+        setPageNumber(1)
+    }
 
   return (
     <div>
-       <button onClick={() => fetchPhotos()}>Fetch Photos</button>
 
-        {photos && photos.map(photo => (
-            <img key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{ maxWidth: '100%'}}/>
+        <input onChange={handleSearch} type="text"/>
+        {/*<button onSubmit={() => handleSearch()}>Fetch Photos</button>*/}
+
+        {photos.map((photo, index) => (
+            (photos.length === index + 1) ? <img ref={lastImgElement} key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{ maxWidth: '100%'}}/>
+            : <img key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{ maxWidth: '100%'}}/>
         ))}
+
+        <div>{loading && 'Loading'}</div>
+        <div>{error && 'Error'}</div>
 
     </div>
   );
