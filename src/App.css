@@ -1,0 +1,46 @@
+body {
+    padding: 10px;
+    color: #1c1c0c;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+}
+
+.input-search {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-right: none;
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    height: 40px;
+    font-size: 20px;
+}
+
+.search-button {
+    height: 53px;
+    border: 1px solid #ccc;
+    background: #ccc;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.form-wrap {
+    background-color: #fff;
+    padding: 7px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+p {
+    font-size: 32px;
+    font-weight: bold;
+    font-style: italic;
+}
