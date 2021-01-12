@@ -6,7 +6,6 @@ export default function usePhotoSearch(query, pageNumber) {
     const [error, setError] = useState(false)
     const [photos, setPhotos] = useState([])
     const [hasMore, setHasMore] = useState(false)
-
     useEffect(() => {
         setPhotos([])
     }, [query])
@@ -19,7 +18,7 @@ export default function usePhotoSearch(query, pageNumber) {
         const apiKey = 'BJD0Ft5i5Qwk6bmbM5zaeFqR3c8uNVz0DZRBxojk4fo'
         const apiUrl = `https://api.unsplash.com/search/photos/?client_id`
 
-        fetch(`${apiUrl}=${apiKey}&page=${pageNumber}&per_page=20&content_filter=high&query=${query}`,
+        fetch(`${apiUrl}=${apiKey}&page=${pageNumber}&per_page=10&content_filter=high&query=${query}`,
             {
                 method: 'get',
                 signal: signal,
@@ -29,7 +28,7 @@ export default function usePhotoSearch(query, pageNumber) {
                 setPhotos(prevPhotos => {
                     return [...prevPhotos, ...data.results]
                 })
-                setHasMore( data.results.length > 0)
+                setHasMore( data.results.length < parseInt(data.total))
                 console.log(data.results.length)
                 setLoading(false)
                 if (response.ok) {
