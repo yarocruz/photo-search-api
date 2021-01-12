@@ -4,30 +4,30 @@ body {
 }
 
 .form {
-    width: 100%;
+    width: 50%;
     display: flex;
 }
 
 .input-search {
     width: 100%;
-    border: 1px solid #ccc;
+    border: 2px solid #183153;
     border-right: none;
     padding: 5px;
     border-radius: 5px 0 0 5px;
-    outline: none;
     height: 40px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .search-button {
-    height: 53px;
-    border: 1px solid #ccc;
-    background: #ccc;
+    height: 54px;
+    border: 3px solid #183153;
+    border-left: none;
+    background: #183153;
     text-align: center;
     color: #fff;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
-    padding: 0 10px;
+    padding: 5px 50px;
     font-size: 20px;
 }
 
@@ -40,7 +40,14 @@ body {
 }
 
 p {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     font-style: italic;
+}
+
+@media screen and (max-width: 650px) {
+    .form {
+        display: flex;
+        width: 100%;
+    }
 }

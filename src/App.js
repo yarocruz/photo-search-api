@@ -1,6 +1,8 @@
 import React, { useCallback, useState, useRef } from 'react'
 import usePhotoSearch from "./hooks/usePhotoSearch";
 import './App.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 
 function App() {
@@ -46,9 +48,11 @@ function App() {
                     type="text"
                     placeholder="Search for a Photo"
                 />
-                <button className="search-button" type="submit"><i className="fa fa-search">Search</i></button>
+                <button className="search-button" type="submit">
+                    <FontAwesomeIcon icon={faSearch} />
+                </button>
             </form>
-            {query ? <p>{`Search results for ${query}`}</p> : <p>Please enter a search term</p>}
+            {query ? <p>{`Search results for "${query}"`}</p> : <p>Please enter a search term</p>}
         </div>
         {photos.map((photo, index) => (
             photos.length === index + 1 ? <img ref={lastImgElement} key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{ maxWidth: '100%'}}/>
