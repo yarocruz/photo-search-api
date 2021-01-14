@@ -29,11 +29,9 @@ export default function usePhotoSearch(query, pageNumber) {
                 setPhotos(prevPhotos => {
                     return [...prevPhotos, ...data.results]
                 })
-
                 setHasMore( data.results.length > 0)
-                setLoading(false)
                 if (response.ok) {
-                    console.log(data.results.length)
+                    setLoading(false)
                 } else {
                     return Promise.reject(data)
                 }
@@ -41,7 +39,6 @@ export default function usePhotoSearch(query, pageNumber) {
             .catch(err => {
                 if(signal.aborted) return
                 setError(true)
-                console.log(err)
             })
         return () => controller.abort()
 

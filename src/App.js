@@ -4,7 +4,6 @@ import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-
 function App() {
     const [query, setQuery] = useState('')
     const [search, setSearch] = useState('')
@@ -16,10 +15,8 @@ function App() {
 
     const lastImgElementRef = useCallback(node => {
        if (loading) return
-
        if (observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
-
            if(entries[0].isIntersecting && hasMore) {
                setPageNumber(prevPageNumber => prevPageNumber + 1)
            }
@@ -35,9 +32,9 @@ function App() {
     function handleSearchSubmit(e) {
         e.preventDefault()
         setQuery(search)
+
         setSearch('')
     }
-
 
   return (
     <div>
@@ -56,7 +53,7 @@ function App() {
             </form>
             {query ? <p>{`Search results for "${query}"`}</p> : <p>Please enter a search term</p>}
         </div>
-        {photos.map((photo, index) => (
+        {photos && photos.map((photo, index) => (
             (photos.length === index + 1) ? <img ref={lastImgElementRef} key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{ maxWidth: '100%'}}/>
             : <img key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{ maxWidth: '100%'}}/>
         ))}
