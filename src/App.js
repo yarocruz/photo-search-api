@@ -18,13 +18,14 @@ function App() {
        if (loading) return
        if (observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
-           if(entries[0].isIntersecting && hasMore) {
+           if(entries[0].isIntersecting && hasMore && entries[0].intersectionRatio !== 1) {
+               console.log(entries)
                console.log('Visible')
                setPageNumber(prevPageNumber =>  prevPageNumber + 1)
            } else {
                console.log('not visible')
            }
-        }, {rootMargin: '-300px'})
+        })
         if (node) observer.current.observe(node)
     }, [loading, hasMore])
 
@@ -56,14 +57,16 @@ function App() {
             </form>
             {query ? <p>{`Search results for "${query}"`}</p> : <p>Please enter a search term</p>}
         </div>
-            {photos && photos.map((photo, index) => {
-                if (photos.length === index + 1) {
-                    return <img ref={lastImgElementRef} key={photo.id} src={photo.urls.full} alt={photo.alt_description}
-                                style={{maxWidth: '100%', minHeight: '50px'}}/>
-                } else {
-                    return <img key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{maxWidth: '100%'}}/>
-                }
-            })}
+            <div style={{zIndex: -1}} className="img-wrapper">
+                {photos && photos.map((photo, index) => {
+                    if (photos.length === index + 1) {
+                        return <img ref={lastImgElementRef} key={photo.id} src={photo.urls.full} alt={photo.alt_description}
+                                    style={{maxWidth: '100%'}}/>
+                    } else {
+                        return <img key={photo.id} src={photo.urls.full} alt={photo.alt_description} style={{maxWidth: '100%'}}/>
+                    }
+                })}
+            </div>
         <div>{loading && 'Loading'}</div>
         <div>{error && 'Error'}</div>
     </div>
