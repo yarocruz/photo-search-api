@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/photo-search-api/static/css/main.7ca6f48b.chunk.css",
-    "main.js": "/photo-search-api/static/js/main.f62c46e5.chunk.js",
-    "main.js.map": "/photo-search-api/static/js/main.f62c46e5.chunk.js.map",
+    "main.js": "/photo-search-api/static/js/main.e384b23f.chunk.js",
+    "main.js.map": "/photo-search-api/static/js/main.e384b23f.chunk.js.map",
     "runtime-main.js": "/photo-search-api/static/js/runtime-main.134081a3.js",
     "runtime-main.js.map": "/photo-search-api/static/js/runtime-main.134081a3.js.map",
     "static/js/2.de933fba.chunk.js": "/photo-search-api/static/js/2.de933fba.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.134081a3.js",
     "static/js/2.de933fba.chunk.js",
     "static/css/main.7ca6f48b.chunk.css",
-    "static/js/main.f62c46e5.chunk.js"
+    "static/js/main.e384b23f.chunk.js"
   ]
 }
